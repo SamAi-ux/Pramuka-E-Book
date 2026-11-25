@@ -1,6 +1,10 @@
 *.iml
 .gradle
+.gradle/
 .kotlin
+.kotlin/
+.build-outputs
+.build-outputs/
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -10,6 +14,9 @@
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
+build/
+/app/build
+app/build/
 /captures
 .externalNativeBuild
 .cxx
@@ -17,3 +24,10 @@ local.properties
 .env
 debug.keystore
 *-debug.log
+firebase-debug.log*
+firestore-debug.log*
+.firebase/
+*.apk
+*.ap_
+*.aab
+
