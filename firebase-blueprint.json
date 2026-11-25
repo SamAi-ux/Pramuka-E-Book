@@ -1,0 +1,272 @@
+{
+  "entities": {
+    "UserAccount": {
+      "title": "UserAccount",
+      "description": "Authenticated Pramuka Garuda user account and assigned RBAC role.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Firebase Authentication UID of the user."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Verified email address from Firebase Auth."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name of the member or leader."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["anggota", "admin"],
+          "description": "Access control role. Regular self-registration is strictly 'anggota'; 'admin' is managed by admins."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp set via FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp updated via FieldValue.serverTimestamp()."
+        }
+      },
+      "required": ["userId", "email", "displayName", "role", "createdAt", "updatedAt"]
+    },
+    "UserScoutProfile": {
+      "title": "UserScoutProfile",
+      "description": "Personal scouting biodata and progression stored privately per user UID.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "school": { "type": "string" },
+        "gudep": { "type": "string" },
+        "rank": {
+          "type": "string",
+          "enum": ["SIAGA", "PENGGALANG", "PENEGAK", "PANDEGA", "PEMBINA", "BINA_DAMPING"]
+        },
+        "phone": { "type": "string" },
+        "avatarId": { "type": "integer" },
+        "customPhotoPath": { "type": "string" },
+        "npa": { "type": "string" },
+        "skuProgress": { "type": "integer" },
+        "tkkCount": { "type": "integer" },
+        "isGaruda": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "name", "school", "gudep", "rank", "phone", "avatarId", "npa", "skuProgress", "tkkCount", "isGaruda", "createdAt", "updatedAt"]
+    },
+    "ActivityRegistration": {
+      "title": "ActivityRegistration",
+      "description": "User-scoped registration status for a scouting activity.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "activityId": { "type": "string" },
+        "registered": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "activityId", "registered", "createdAt", "updatedAt"]
+    },
+    "AdminRole": {
+      "title": "AdminRole",
+      "description": "Authoritative registry of users granted admin access to the Admin Dashboard.",
+      "type": "object",
+      "properties": {
+        "adminUid": {
+          "type": "string",
+          "description": "Firebase Authentication UID of the admin user."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the admin user."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin"],
+          "description": "Must be 'admin'."
+        },
+        "grantedBy": {
+          "type": "string",
+          "description": "UID of the admin who granted access."
+        },
+        "active": {
+          "type": "boolean",
+          "description": "Whether admin access is currently active."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["adminUid", "email", "role", "grantedBy", "active", "createdAt", "updatedAt"]
+    },
+    "InstitutionProfile": {
+      "title": "InstitutionProfile",
+      "description": "Shared institution identity (school/pangkalan name, gudep number, logo reference).",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "gudep": { "type": "string" },
+        "logoPath": { "type": "string" },
+        "updatedBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "gudep", "logoPath", "updatedBy", "createdAt", "updatedAt"]
+    },
+    "ScoutMaterialDoc": {
+      "title": "ScoutMaterialDoc",
+      "description": "Scouting learning module managed by admins and readable by members.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "summary": { "type": "string" },
+        "content": { "type": "string" },
+        "details": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "iconKey": { "type": "string" },
+        "updatedBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "category", "summary", "content", "details", "iconKey", "updatedBy", "createdAt", "updatedAt"]
+    },
+    "SemesterSyllabusDoc": {
+      "title": "SemesterSyllabusDoc",
+      "description": "Semester work program & learning syllabus curated by admins.",
+      "type": "object",
+      "properties": {
+        "semester": { "type": "string" },
+        "rank": {
+          "type": "string",
+          "enum": ["SIAGA", "PENGGALANG", "PENEGAK", "PANDEGA", "PEMBINA", "BINA_DAMPING"]
+        },
+        "programTitle": { "type": "string" },
+        "weekRange": { "type": "string" },
+        "competencyTarget": { "type": "string" },
+        "method": { "type": "string" },
+        "status": { "type": "string" },
+        "updatedBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["semester", "rank", "programTitle", "weekRange", "competencyTarget", "method", "status", "updatedBy", "createdAt", "updatedAt"]
+    },
+    "ScoutActivityDoc": {
+      "title": "ScoutActivityDoc",
+      "description": "Official scouting activity schedule managed by admins.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "location": { "type": "string" },
+        "leader": { "type": "string" },
+        "quota": { "type": "integer" },
+        "registeredCount": { "type": "integer" },
+        "status": { "type": "string" },
+        "description": { "type": "string" },
+        "updatedBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "category", "date", "time", "location", "leader", "quota", "registeredCount", "status", "description", "updatedBy", "createdAt", "updatedAt"]
+    },
+    "ScoutAnnouncementDoc": {
+      "title": "ScoutAnnouncementDoc",
+      "description": "Official announcement broadcast managed by admins.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "date": { "type": "string" },
+        "priority": { "type": "string" },
+        "author": { "type": "string" },
+        "updatedBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "content", "date", "priority", "author", "updatedBy", "createdAt", "updatedAt"]
+    },
+    "ScoutMemberDoc": {
+      "title": "ScoutMemberDoc",
+      "description": "Admin-managed scout member roster record (restricted PII).",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "school": { "type": "string" },
+        "gudep": { "type": "string" },
+        "rank": {
+          "type": "string",
+          "enum": ["SIAGA", "PENGGALANG", "PENEGAK", "PANDEGA", "PEMBINA", "BINA_DAMPING"]
+        },
+        "skuLevel": { "type": "string" },
+        "joinDate": { "type": "string" },
+        "phone": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "school", "gudep", "rank", "skuLevel", "joinDate", "phone", "verified", "createdBy", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserAccount" },
+      "description": "Stores user account and non-escalatable role metadata per Firebase Auth UID."
+    },
+    "/users/{userId}/profile/{docId}": {
+      "schema": { "$ref": "#/entities/UserScoutProfile" },
+      "description": "Stores personal scouting biodata and progression per Firebase Auth UID."
+    },
+    "/users/{userId}/activityRegistrations/{activityId}": {
+      "schema": { "$ref": "#/entities/ActivityRegistration" },
+      "description": "Stores per-user activity registration state."
+    },
+    "/admins/{adminUid}": {
+      "schema": { "$ref": "#/entities/AdminRole" },
+      "description": "Trusted admin allowlist documents gating access to the Admin Dashboard."
+    },
+    "/pangkalan/{configId}": {
+      "schema": { "$ref": "#/entities/InstitutionProfile" },
+      "description": "Shared institution identity and Gudep metadata."
+    },
+    "/materials/{materialId}": {
+      "schema": { "$ref": "#/entities/ScoutMaterialDoc" },
+      "description": "Shared scouting materials catalog."
+    },
+    "/syllabi/{syllabusId}": {
+      "schema": { "$ref": "#/entities/SemesterSyllabusDoc" },
+      "description": "Shared semester work programs and syllabi."
+    },
+    "/activities/{activityId}": {
+      "schema": { "$ref": "#/entities/ScoutActivityDoc" },
+      "description": "Shared scouting activities schedule."
+    },
+    "/announcements/{announcementId}": {
+      "schema": { "$ref": "#/entities/ScoutAnnouncementDoc" },
+      "description": "Shared scouting announcements."
+    },
+    "/members/{memberId}": {
+      "schema": { "$ref": "#/entities/ScoutMemberDoc" },
+      "description": "Admin-managed scout member roster with PII protection."
+    }
+  }
+}

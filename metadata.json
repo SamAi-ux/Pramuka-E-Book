@@ -1,0 +1,6 @@
+{
+  "name": "Pramuka Garuda",
+  "description": "Aplikasi mobile-first untuk anggota Pramuka: tingkatan, kegiatan, materi, pusat bantuan, dan dashboard admin terkunci.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
